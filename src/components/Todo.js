@@ -18,6 +18,7 @@ import useStorage from '../hooks/storage';
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
+
 function Todo() {
   const [items, putItems] = useState([
       /* テストコード 開始 */
@@ -27,6 +28,14 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  const onCheck = (e, key) => {
+    const newItems = items.map(item => {
+      if (item.key === key) item.done = e.target.checked;
+      return item;
+    })
+    putItems(newItems);
+  }
+
   return (
     <div className="panel">
       <div className="panel-heading">
@@ -35,7 +44,8 @@ function Todo() {
       {items.map(item => (
         <TodoItem 
           key={item.key}
-          item={item} 
+          item={item}
+          onCheck={onCheck}
         />
       ))}
       <div className="panel-block">
