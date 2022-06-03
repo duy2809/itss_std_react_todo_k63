@@ -6,7 +6,7 @@
 */
 import classnames from "classnames";
 
-function TodoItem({item, onCheck}) {
+function TodoItem({ item, onCheck }) {
   return (
     <label 
       className={classnames("panel-block", {
@@ -14,7 +14,7 @@ function TodoItem({item, onCheck}) {
       })}
     >
       <input 
-        type="checkbox" 
+        type="checkbox"
         value={item.done}
         onChange={(e) => onCheck(e, item.key)}
         defaultChecked={item.done}

@@ -3,3 +3,8 @@
 .container {
   margin-top: 2rem;
 }
+
+form {
+  margin: 0;
+  width: 100%
+}
