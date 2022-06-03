@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* 
   【Todoのデータ構成】
@@ -27,6 +27,22 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
+  const [filterTodos, setFilterTodos] = useState(items);
+  const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    setFilterTodos(
+      items.filter((item) => {
+        if (filter === "completed") {
+          return item.done;
+        }
+        if (filter === "active") {
+          return !item.done;
+        }
+        return true;
+      })
+    );
+  }, [filter, items]);
 
   const onCheck = (e, key) => {
     const newItems = items.map(item => {
@@ -40,6 +56,10 @@ function Todo() {
     const newItem = { key: getKey(), text: value, done: false }
     putItems([...items, newItem]);
   }
+
+  const onSelectFilter = (value) => {
+    setFilter(value);
+  }
   
   return (
     <div className="panel">
@@ -49,7 +69,8 @@ function Todo() {
       <Input 
         onAddNewTodo={onAddNewTodo}
       />
-      {items.map(item => (
+      <Filter filter={filter} onSelectFilter={onSelectFilter}/>
+      {filterTodos.map(item => (
         <TodoItem 
           key={item.key}
           item={item}
@@ -57,7 +78,7 @@ function Todo() {
         />
       ))}
       <div className="panel-block">
-        {items.length} items
+        {filterTodos.length} items
       </div>
     </div>
   );
