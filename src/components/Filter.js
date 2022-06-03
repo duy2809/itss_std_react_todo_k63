@@ -36,6 +36,7 @@ function Filter({ filter, onSelectFilter }) {
           })}
           onClick={() => onSelectFilter(tab.value)}
           style={{ marginLeft: "4px", marginRight: "4px" }}
+          href="/#"
         >
           {tab.label}
         </a>
